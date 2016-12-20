@@ -1,3 +1,4 @@
+import random
 ####
 # Each team's file must define four tokens:
 #     team_name: a string
@@ -6,9 +7,9 @@
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'The name the team gives to itself' # Only 10 chars displayed.
-strategy_name = 'The name the team gives to this strategy'
-strategy_description = 'How does this strategy decide?'
+team_name = 'crops' # Only 10 chars displayed.
+strategy_name = 'The Gamble'
+strategy_description = 'Completely random early, selectively random to counter opponents decisions for the majority.'
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -17,6 +18,35 @@ def move(my_history, their_history, my_score, their_score):
     Make my move.
     Returns 'c' or 'b'. 
     '''
+    answer='c'
+    bAnswers=0
+    cAnswers=0
+    if len(my_history)<=25:
+   	answers=('c','b')
+   	answer=random.choice(answers)
+   	return answer
+    if len(my_history)==26:
+   	for theirAnswer in their_history:
+  		if theirAnswer=='c':
+ 			cAnswers+=1
+  		if theirAnswer=='b':
+ 			bAnswers+=1
+    if len(my_history)>=26 and len(my_history)<76:
+        if cAnswers>bAnswers:
+   	    randinteger=random.randint(1,100)
+   	    if randinteger<67:
+  		answer='c'
+   	    if randinteger>=67:
+  		answer='b'
+        if cAnswers<=bAnswers:
+   	    randinteger=random.randint(1,100)
+   	    if randinteger>=67:
+  		answer='c'
+   	    if randinteger<67:
+  		answer='b'
+  	return answer
+    answer='b'
+    return answer
 
     # my_history: a string with one letter (c or b) per round that has been played with this opponent.
     # their_history: a string of the same length as history, possibly empty. 
