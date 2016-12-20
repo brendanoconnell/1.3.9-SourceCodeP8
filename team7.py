@@ -27,16 +27,16 @@ def move(my_history, their_history, my_score, their_score):
     # Decide whether to return 'c' or 'b'.
     
     if len(my_history) == 0:
-        return 'c'
+        return 'C'
     else: 
-        if (their_history[-1]) == 'b':
-            return 'b'
+        if (their_history[-1]) == 'B':
+            return 'B'
         else:
             return 'c'
             if (their_score) > 100:
-                return 'b'
+                return 'B'
                 if (my_score) > 100:
-                    return 'c'
+                    return 'C'
     
                 
                 
