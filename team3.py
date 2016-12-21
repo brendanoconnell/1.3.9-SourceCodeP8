@@ -12,41 +12,43 @@ strategy_name = 'Trying to be Nice'
 strategy_description = 'The strategy generally colludes for the beginning of the game, and then using a counter variable sees if the other team colludes or betrays more. If they collude more we continue colluding. If they betray more we betray. If it cannot be determined it is random.'       
 colludeNumber = 0
 betrayNumber = 0
-randomRoundDistance = 0
-currentRound = 0 
-runMethodRound = 0
-def move(my_history, their_history, my_score, their_score, colludeNumber, betrayNumber):
+    
+
+def answerChecker(their_history, colludeNumber, betrayNumber):
+    if len(their_history) > 0:
+        if their_history[-1] == 'c':
+            colludeNumber += 1
+        elif their_history[-1]  == 'b':
+            betrayNumber += 1
+    
+           
+
+def move(my_history, their_history, my_score, their_score, ):
     ''' Arguments accepted: my_history, their_history are strings.
     my_score, their_score are ints.
     
     Make my move.
     Returns 'c' or 'b'. 
     '''
-    if their_history[-1] == 'c':
-        colludeNumber += 1
-    if their_history[-1] == 'b':
-        betrayNumber += 1
-    
-    if len(my_history) < 10:
+    answerChecker(their_history, colludeNumber, betrayNumber)
+    if len(my_history) < 5:
         return 'c'
-    
     else:
-        if (colludeNumber > betrayNumber + 5 ):
-            return 'c'
-        elif (colludeNumber < betrayNumber + 5):
-            return 'b'
-        else:
-             guesser = random.range(0,1,1)
-             if (guesser == 0):
+            if (colludeNumber + 5 > betrayNumber ):
+                return 'c'
+            elif (colludeNumber < betrayNumber + 5):
+                return 'b'
+            else:
+                guesser = random.range(0,1,1)
+                if (guesser == 0):
                  return 'c'
-             if (guesser == 1):
-                 return 'b'   
+                if (guesser == 1):
+                    return 'b'   
             
     
   
   
 
-    return 'c'
     # my_history: a string with one letter (c or b) per round that has been played with this opponent.
     # their_history: a string of the same length as history, possibly empty. 
     # The first round between these two players is my_history[0] and their_history[0].
@@ -91,20 +93,5 @@ if __name__ == '__main__':
               my_score=0, 
               their_score=0,
               result='b') 
-def counter(their_history, colludeNumber, betrayNumber):
-    if their_history[-1] == 'c':
-        colludeNumber += 1
-    if their_history[-1] == 'b':
-        betrayNumber += 1
-            
-def colludeForRandom(currentRound, runMethodRound):
-    
-    randomRoundCounter = random.range(3,7,1)
-    if currentRound < (runMethodRound + randomRoundCounter):
-        return 'c'
-    else:
-        return 'b'
-        runMethodRound = currentRound
-  
-                
+
                     
